@@ -614,11 +614,7 @@ func UpdateAgentProperties(propertiesFile string, agentConfig string, sectionNam
 			}
 		}
 	} else {
-		if _, err := f.WriteString("userSandboxes=true"); err != nil {
-			utils.PrintLog(fmt.Sprintf(utils.MFT_CONT_ERR_UPDTING_FILE_0066, propertiesFile, err))
-		} else {
-			retVal = true
-		}
+		retVal = true
 	}
 	return retVal
 }
