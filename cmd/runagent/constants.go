@@ -18,6 +18,13 @@ package main
 /**
 * This file contains the list of constants used by the program
  */
+
+// Third party jar used for reading JSON formatted data
+const MOVEFILE_CUSTOM_EXIT_NAME = "be/test/mft/MoveFiles"
+
+// Source path of third party JSON jar
+const MOVEFILE_CUSTOM_EXIT = "/customexits/mqft/movefilesexit/MoveFiles"
+
 // Source path of custom PBA credentials exit to copy from
 const PBA_CUSTOM_CRED_EXIT_SRC_PATH = "/customexits"
 

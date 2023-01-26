@@ -264,6 +264,12 @@ func SetupAgent(agentConfig string, bfgDataPath string, coordinationQMgr string)
 				utils.CopyFile(PBA_CUSTOM_CRED_DEPEND_LIB, protocolBridgeCustExitDependLib)
 			}
 
+			if standardAgent {
+				// Copy the custom MoveFile exit to agent's exit directory.
+				standardAgentCustExit := bfgDataPath + MFT_CONFIG_PATH_SUFFIX + coordinationQMgr + MFT_AGENTS_SLASH + agentName + MFT_EXITS_SLASH + MOVEFILE_CUSTOM_EXIT_NAME
+				utils.CopyFile(MOVEFILE_CUSTOM_EXIT, standardAgentCustExit)
+			}
+
 			// Configuration file has not been provided. Make an attempt to read UID/PWD from agent configuration JSON file and create
 			// the MQMFTCredentials file place it in agent's config directory. The credentials file will be encrypted using a fixed key.
 			agentCredFilePath := bfgDataPath + MFT_CONFIG_PATH_SUFFIX + coordinationQMgr + MFT_AGENTS_SLASH + agentName + MFT_AGENT_CRED_SLASH
@@ -614,7 +620,11 @@ func UpdateAgentProperties(propertiesFile string, agentConfig string, sectionNam
 			}
 		}
 	} else {
-		retVal = true
+		if _, err := f.WriteString("userSandboxes=true"); err != nil {
+			utils.PrintLog(fmt.Sprintf(utils.MFT_CONT_ERR_UPDTING_FILE_0066, propertiesFile, err))
+		} else {
+			retVal = true
+		}
 	}
 	return retVal
 }
